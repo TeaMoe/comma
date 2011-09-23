@@ -1,5 +1,9 @@
 class Object
-  class_inheritable_accessor :comma_formats
+  if ActiveSupport::VERSION::MAJOR >= 3
+    class_attribute :comma_formats
+  else
+    class_inheritable_accessor :comma_formats
+  end
 
   def self.comma(style = :default, &block)
     (self.comma_formats ||= {})[style] = block
